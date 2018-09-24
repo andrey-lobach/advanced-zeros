@@ -35,12 +35,21 @@ module.exports = function getZerosCount(number, base) {
 
     let baseMult = getPrimeMultipliers(base);
     baseMult.reverse();
-    let max = baseMult[0];
-    let count = 1;
-    for(let i = 1; i < baseMult.length; i++) {
-        if (baseMult[i] == max) count++;
-        else break;
-    }
+    let numberOne = max = baseMult[0];
+    let numberTwo = baseMult[baseMult.length-1];
+    let degreeOne = count = baseMult.join('').split(numberOne).length - 1;
+    let degreeTwo = baseMult.join('').split(numberTwo).length - 1;
+
+    if (degreeOne == '1') degreeOne =2;
+    if(degreeTwo > 4) {
+        if(Math.pow(numberOne,degreeOne)>Math.pow(numberTwo,degreeTwo)) {
+            max = numberOne;
+            count = baseMult.join('').split(numberOne).length - 1;
+        }
+        else {
+            max = numberTwo;
+            count = degreeTwo;
+        }}
     while (number > 0){
         result += Math.trunc(number / max);
         number = Math.trunc(number / max);
